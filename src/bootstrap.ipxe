@@ -1,0 +1,9 @@
+#!ipxe
+
+echo Forcing net0 open
+ifopen net0 #required b/c of STP and dhcp timeouts
+echo Forced net0 open
+echo Starting DHCP configuration
+time dhcp || shell
+echo Completed DHCP configuration
+chain http://${dhcp-server}/ || shell
